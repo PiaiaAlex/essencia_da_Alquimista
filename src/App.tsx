@@ -19,6 +19,7 @@ const products = [
     image: '/jardim.jpg',
     color: 'bg-orange-100/50',
     isComingSoon: false,
+    category: 'essencia',
   },
   {
     id: 2,
@@ -28,6 +29,7 @@ const products = [
     image: '/vanilla.jpg',
     color: 'bg-yellow-100/40',
     isComingSoon: false,
+    category: 'essencia',
   },
   {
     id: 3,
@@ -37,6 +39,7 @@ const products = [
     image: '/passion.jpg',
     color: 'bg-emerald-100/40',
     isComingSoon: false,
+    category: 'essencia',
   },
   {
     id: 4,
@@ -46,6 +49,7 @@ const products = [
     image: '/lipbalm.jpg',
     color: 'bg-pink-100/40',
     isComingSoon: true,
+    category: 'cosmetico',
   },
   {
     id: 5,
@@ -55,6 +59,7 @@ const products = [
     image: '/bruna.jpg',
     color: 'bg-green-100/40',
     isComingSoon: true,
+    category: 'cosmetico',
   },
 ];
 
@@ -100,6 +105,7 @@ export default function App() {
             <div className="hidden md:flex space-x-8">
               <a href="#home" className="text-gray-600 hover:text-leaf transition-colors italic tracking-wide text-lg">Início</a>
               <a href="#produtos" className="text-gray-600 hover:text-leaf transition-colors italic tracking-wide text-lg">Essências</a>
+              <a href="#cosmeticos" className="text-gray-600 hover:text-leaf transition-colors italic tracking-wide text-lg">Cosméticos</a>
               <a href="#sobre" className="text-gray-600 hover:text-leaf transition-colors italic tracking-wide text-lg">Sobre</a>
               <a href="#contato" className="text-gray-600 hover:text-leaf transition-colors italic tracking-wide text-lg">Contato</a>
             </div>
@@ -115,27 +121,21 @@ export default function App() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="font-serif text-5xl md:text-7xl font-medium italic tracking-wide text-gray-900 mb-6 leading-tight max-w-3xl mx-auto"
+              className="font-serif text-5xl md:text-7xl font-medium italic tracking-wide text-gray-900 mb-12 leading-tight max-w-3xl mx-auto"
             >
               Respire a <span className="text-leaf">natureza</span> em cada ambiente.
             </motion.h1>
-            <motion.p 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-xl md:text-2xl text-gray-600 mb-10 font-light italic tracking-wide leading-relaxed max-w-3xl mx-auto"
-            >
-              Essências em spray formuladas com óleos essenciais puros. 
-              Transforme sua casa em um refúgio de bem-estar e frescor.
-            </motion.p>
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
               className="flex flex-col sm:flex-row justify-center gap-4 mb-16"
             >
-              <a href="#produtos" className="inline-flex items-center justify-center px-8 py-4 text-lg font-medium italic tracking-wide rounded-full text-white bg-leaf hover:bg-leaf-dark transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5">
-                Ver Essências
+              <a href="#produtos" className="inline-flex items-center justify-center px-8 py-4 text-lg font-medium italic tracking-wide rounded-full text-leaf border-2 border-leaf hover:bg-leaf hover:text-white transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5 min-w-[160px]">
+                Essências
+              </a>
+              <a href="#cosmeticos" className="inline-flex items-center justify-center px-8 py-4 text-lg font-medium italic tracking-wide rounded-full text-leaf border-2 border-leaf hover:bg-leaf hover:text-white transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5 min-w-[160px]">
+                Cosméticos
               </a>
             </motion.div>
 
@@ -196,11 +196,13 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
             <h2 className="font-serif text-4xl md:text-5xl font-medium italic tracking-wide text-gray-900 mb-4">Nossas Essências</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto text-xl italic font-light tracking-wide">Escolha o aroma perfeito para o seu momento. Frascos de 60ml com válvula spray de alta qualidade.</p>
+            <p className="text-gray-600 max-w-3xl mx-auto text-xl italic font-light tracking-wide">
+              Essências em spray formuladas com óleos essenciais puros. Transforme sua casa em um refúgio de bem-estar e frescor.
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-7xl mx-auto">
-            {products.map((product, index) => (
+          <div className="grid grid-cols-1 gap-20 max-w-5xl mx-auto">
+            {products.filter(p => p.category === 'essencia').map((product, index) => (
               <motion.div 
                 key={product.id}
                 initial={{ opacity: 0, y: 20 }}
@@ -216,6 +218,60 @@ export default function App() {
                   referrerPolicy="no-referrer"
                 />
                 
+                <button 
+                  onClick={() => handleWhatsAppClick(product.name)}
+                  disabled={product.isComingSoon}
+                  title={product.isComingSoon ? 'Em breve' : 'Comprar via WhatsApp'}
+                  className={`absolute bottom-6 right-6 w-16 h-16 rounded-full flex items-center justify-center shadow-2xl transition-all hover:scale-110 z-10 ${
+                    product.isComingSoon 
+                      ? 'bg-white/80 text-gray-400 cursor-not-allowed backdrop-blur-sm' 
+                      : 'bg-[#25D366] hover:bg-[#20bd5a] text-white'
+                  }`}
+                >
+                  <MessageCircle className="w-8 h-8" />
+                </button>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Cosmetics Section */}
+      <section id="cosmeticos" className="py-24 relative overflow-hidden bg-leaf-light/5">
+        {/* Decorative Elements */}
+        <Droplets className="absolute top-20 left-10 w-40 h-40 text-leaf opacity-[0.03] rotate-12" />
+        <Wind className="absolute bottom-20 right-10 w-48 h-48 text-leaf opacity-[0.03] -rotate-12" />
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-16">
+            <h2 className="font-serif text-4xl md:text-5xl font-medium italic tracking-wide text-gray-900 mb-4">Nossos Cosméticos</h2>
+            <p className="text-gray-600 max-w-3xl mx-auto text-xl italic font-light tracking-wide">
+              Os cosméticos são formulados com ingredientes naturais, promovendo o cuidado com o corpo utilizando o que a natureza nos proporciona.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-20 max-w-5xl mx-auto">
+            {products.filter(p => p.category === 'cosmetico').map((product, index) => (
+              <motion.div 
+                key={product.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="relative rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 group"
+              >
+                <img 
+                  src={product.image} 
+                  alt={product.name} 
+                  className="w-full h-auto object-cover group-hover:scale-[1.03] transition-transform duration-700"
+                  referrerPolicy="no-referrer"
+                />
+                
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
+                   <h3 className="text-white text-2xl font-serif italic mb-2">{product.name}</h3>
+                   <p className="text-white/80 text-sm italic font-light mb-4">{product.description}</p>
+                </div>
+
                 <button 
                   onClick={() => handleWhatsAppClick(product.name)}
                   disabled={product.isComingSoon}
@@ -289,6 +345,7 @@ export default function App() {
               <ul className="space-y-3 text-white/70 text-lg italic tracking-wide font-light">
                 <li><a href="#home" className="hover:text-leaf-light transition-colors">Início</a></li>
                 <li><a href="#produtos" className="hover:text-leaf-light transition-colors">Nossas Essências</a></li>
+                <li><a href="#cosmeticos" className="hover:text-leaf-light transition-colors">Nossos Cosméticos</a></li>
                 <li><a href="#sobre" className="hover:text-leaf-light transition-colors">Sobre Nós</a></li>
                 <li><a href="#" className="hover:text-leaf-light transition-colors">Política de Privacidade</a></li>
               </ul>
