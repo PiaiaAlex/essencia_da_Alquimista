@@ -45,20 +45,20 @@ const products = [
     id: 4,
     name: 'Lip Balm',
     description: 'Hidratação profunda e natural para os seus lábios. Fórmula exclusiva em desenvolvimento.',
-    price: 'Em breve',
+    price: 'R$ 25,00',
     image: '/lipbalm.jpg',
     color: 'bg-pink-100/40',
-    isComingSoon: true,
+    isComingSoon: false,
     category: 'cosmetico',
   },
   {
     id: 5,
     name: 'Bruma de Aloe Vera',
     description: 'Refrescância e cuidado botânico para a sua pele. Aguarde nosso próximo lançamento.',
-    price: 'Em breve',
+    price: 'R$ 25,00',
     image: '/bruna.jpg',
     color: 'bg-green-100/40',
-    isComingSoon: true,
+    isComingSoon: false,
     category: 'cosmetico',
   },
 ];
@@ -266,11 +266,6 @@ export default function App() {
                   className="w-full h-auto object-cover group-hover:scale-[1.03] transition-transform duration-700"
                   referrerPolicy="no-referrer"
                 />
-                
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
-                   <h3 className="text-white text-2xl font-serif italic mb-2">{product.name}</h3>
-                   <p className="text-white/80 text-sm italic font-light mb-4">{product.description}</p>
-                </div>
 
                 <button 
                   onClick={() => handleWhatsAppClick(product.name)}
@@ -313,7 +308,7 @@ export default function App() {
       {/* Footer */}
       <footer id="contato" className="bg-[#1A2E1A] text-white pt-16 pb-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
             <div>
               <div className="flex items-center gap-3 mb-6">
                 <div className="bg-white/90 rounded-full p-1">
@@ -338,6 +333,19 @@ export default function App() {
                   contato@aurabotanica.com.br
                 </li>
               </ul>
+            </div>
+
+            <div>
+              <h4 className="font-serif text-2xl font-medium italic tracking-wide mb-6 text-white">Instagram</h4>
+              <a 
+                href="https://www.instagram.com/essencia_alquimista?utm_source=qr&igsh=MTlkaDlsNmdmOXdiYQ%3D%3D" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 text-white/70 hover:text-leaf-light transition-colors text-lg italic tracking-wide font-light"
+              >
+                <Instagram className="w-5 h-5 not-italic" />
+                @essencia_alquimista
+              </a>
             </div>
 
             <div>
